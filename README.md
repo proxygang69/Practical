@@ -40,34 +40,33 @@ sudo apt update && sudo apt install -y nodejs npm
 pip3 install pandas numpy scikit-learn matplotlib statsmodels seaborn nltk mlxtend
 ```
 
-What It Does 🧐
+## What It Does 🧐
 
--Starts up instantly (if the stars align).
+- Starts up instantly (if the stars align).
+- Works just enough to confuse the examiner into passing you.
+- Minimalist in nature — embrace the silence.
 
--Works just enough to confuse the examiner into passing you.
+---
 
--Minimalist in nature — embrace the silence.
+## Common Errors & Interpretations ⚠️
 
+- **Module not found** – You forgot to install the requirements.
+- **Port already in use** – You’ve summoned this app twice.
+- **White screen of death** – Check the console. Then fix a typo.
+- **Nothing happens** – That’s... kinda the point? Minimalism is an aesthetic.
 
-Common Errors & Interpretations ⚠️
+---
 
--Module not found – You forgot to install the requirements.
-
--Port already in use – You’ve summoned this app twice.
-
--White screen of death – Check the console. Then fix a typo.
-
--Nothing happens – That’s... kinda the point? Minimalism is an aesthetic.
-
-
-If You’re Reading This During a Practical ⏳
+## If You’re Reading This During a Practical ⏳
 
 Godspeed, soldier. You’re doing great. Kinda.
 
-Final Warning ⚡
+---
+
+## Final Warning ⚡
 
 This was built with 1% logic, 99% ChatGPT, and 100% sheer will.
 
-
+---
 
 Made with love ❤️ by Proxygang69
