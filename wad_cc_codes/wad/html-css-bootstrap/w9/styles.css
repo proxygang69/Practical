@@ -1,0 +1,14 @@
+body {
+    background-color: #fdfdfd;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+  }
+  
+  .custom-paragraph {
+    font-size: 1.2em;
+    color: blue;
+    background-color: #e6f0ff;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  

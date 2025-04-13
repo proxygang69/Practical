@@ -1,0 +1,26 @@
+# Step 1: Download and install Node.js from the official website
+# Visit: https://nodejs.org/ and download the latest LTS version
+
+# Step 2: Verify Node.js and npm installation
+node -v           # Check installed Node.js version
+npm -v            # Check installed npm (Node Package Manager) version
+
+# Step 3: Install Angular CLI globally
+npm install -g @angular/cli
+
+# Step 4: Verify Angular CLI installation
+ng version        # This will show the installed Angular CLI version and related environment details
+
+# Step 5: Create a new Angular project
+ng new angular-auth-app  # Creates a new Angular project named 'angular-auth-app'
+
+# Step 6: Navigate into the project directory
+cd angular-auth-app
+
+# Step 7: Generate Angular components
+ng g c components/register   # Generates a Register component under src/app/components
+ng g c components/login      # Generates a Login component under src/app/components
+ng g c components/profile    # Generates a Profile component under src/app/components
+
+# Step 8: Generate Angular service for authentication
+ng g s services/auth         # Generates an AuthService under src/app/services
