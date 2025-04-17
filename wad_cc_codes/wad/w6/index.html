@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Table Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 10px 10px 30px 0;
+      display: inline-block;
+    }
+    td, th {
+      border: 1px solid #000;
+      padding: 8px 12px;
+      text-align: center;
+      min-width: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Enter Input (Format: row#col#start)</h2>
+  <input type="text" id="input1" placeholder="e.g. 3#3#3">
+  <input type="text" id="input2" placeholder="e.g. 3#3#2">
+  <button onclick="generateTables()">Generate Tables</button>
+
+  <div id="tables"></div>
+
+  <script>
+    function parseInput(input) {
+      const [rows, cols, start] = input.split('#').map(Number);
+      return { rows, cols, start };
+    }
+
+    function generateTable(rows, cols, start) {
+      const table = [];
+      let num = start;
+      for (let i = 0; i < rows; i++) {
+        table[i] = [];
+        for (let j = 0; j < cols; j++) {
+          table[i][j] = num;
+          num += start;
+        }
+      }
+      return table;
+    }
+
+    function displayTable(data, id, valueMap = {}) {
+      let html = `<table id="${id}">`;
+      data.forEach(row => {
+        html += "<tr>";
+        row.forEach(cell => {
+          let style = "";
+          if (valueMap[cell]) {
+            style = `style="background-color:${valueMap[cell]}"`;
+          }
+          html += `<td ${style}>${cell}</td>`;
+        });
+        html += "</tr>";
+      });
+      html += "</table>";
+      return html;
+    }
+
+    function generateColor(index) {
+      const colors = ["#f8d7da", "#d4edda", "#d1ecf1", "#fff3cd", "#e2e3e5", "#fce5cd"];
+      return colors[index % colors.length];
+    }
+
+    function generateTables() {
+      const input1 = document.getElementById("input1").value;
+      const input2 = document.getElementById("input2").value;
+
+      const t1 = parseInput(input1);
+      const t2 = parseInput(input2);
+
+      const table1 = generateTable(t1.rows, t1.cols, t1.start);
+      const table2 = generateTable(t2.rows, t2.cols, t2.start);
+
+      let html = "<h3>Table 1</h3>";
+      html += displayTable(table1, "table1");
+
+      html += "<h3>Table 2</h3>";
+      html += displayTable(table2, "table2");
+
+      if (t1.rows === t2.rows && t1.cols === t2.cols) {
+        const third = [];
+        const valueMap = {};
+        let colorIndex = 0;
+
+        for (let i = 0; i < t1.rows; i++) {
+          third[i] = [];
+          for (let j = 0; j < t1.cols; j++) {
+            let val;
+            if (table1[i][j] === table2[i][j]) {
+              val = table1[i][j];
+            } else {
+              val = table1[i][j] * table2[i][j];
+            }
+
+            if (valueMap[val] === undefined) {
+              valueMap[val] = generateColor(colorIndex++);
+            }
+            third[i][j] = val;
+          }
+        }
+
+        html += "<h3>Third Table</h3>";
+        html += displayTable(third, "table3", valueMap);
+      }
+
+      document.getElementById("tables").innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>
