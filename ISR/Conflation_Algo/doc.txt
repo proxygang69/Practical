@@ -1,0 +1,3 @@
+Information retrieval helps find useful information. 
+The retrieval system ranks documents based on relevance. 
+Conflation algorithms like stemming improve search results.
