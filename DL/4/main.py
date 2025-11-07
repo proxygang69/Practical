@@ -9,12 +9,12 @@ from keras.layers import Input, Dense
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
+from sklearn.metrics import classification_report, confusion_matrix
 
 # =====================
-# 1. Load ECG Dataset
+# 1. Load ECG Dataset (Local)
 # =====================
-url = "http://storage.googleapis.com/download.tensorflow.org/data/ecg.csv"
-data = pd.read_csv(url, header=None)
+data = pd.read_csv("ecg_autoencoder_dataset.csv", header=None)
 
 # Last column = labels (0 = anomaly, 1 = normal)
 X = data.iloc[:, :-1].values
@@ -22,7 +22,7 @@ y = data.iloc[:, -1].values
 
 # =====================
 # 2. Preprocessing
-# =====================
+# =====================+
 scaler = MinMaxScaler()
 X_scaled = scaler.fit_transform(X)
 
@@ -88,8 +88,6 @@ print("Reconstruction error threshold:", threshold)
 # 7. Anomaly Detection
 # =====================
 y_pred = [0 if e > threshold else 1 for e in mse]
-
-from sklearn.metrics import classification_report, confusion_matrix
 
 print("\nConfusion Matrix:")
 print(confusion_matrix(y_test_all, y_pred))

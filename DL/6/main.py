@@ -1,3 +1,5 @@
+# Assignment: Object Classification on Caltech-101 using ResNet18
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -8,8 +10,18 @@ import matplotlib.pyplot as plt
 # =====================
 # 1. Data Preparation
 # =====================
+# Set path to your dataset folder
+# Folder structure:
+# caltech-101-img/
+# ├── accordion/
+# ├── airplanes/
+# ├── anchor/
+# └── ...
+data_dir = "./caltech-101-img"
+
+# Train/Validation transforms
 transform_train = transforms.Compose([
-    transforms.Resize((64, 64)),
+    transforms.Resize((128, 128)),
     transforms.RandomHorizontalFlip(),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406],
@@ -17,42 +29,51 @@ transform_train = transforms.Compose([
 ])
 
 transform_val = transforms.Compose([
-    transforms.Resize((64, 64)),
+    transforms.Resize((128, 128)),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406],
                          [0.229, 0.224, 0.225])
 ])
 
-trainset = datasets.CIFAR10(root="./data", train=True, download=True, transform=transform_train)
-valset = datasets.CIFAR10(root="./data", train=False, download=True, transform=transform_val)
+# Load dataset using ImageFolder (expects subfolders as class names)
+full_dataset = datasets.ImageFolder(root=data_dir, transform=transform_train)
 
-# Optional subset for faster testing
-subset_size = 5000
-train_subset, _ = random_split(trainset, [subset_size, len(trainset) - subset_size])
+# Split dataset into train (80%) and validation (20%)
+train_size = int(0.8 * len(full_dataset))
+val_size = len(full_dataset) - train_size
+trainset, valset = random_split(full_dataset, [train_size, val_size])
 
-trainloader = DataLoader(train_subset, batch_size=64, shuffle=True)
+# Use different transforms for validation
+valset.dataset.transform = transform_val
+
+trainloader = DataLoader(trainset, batch_size=64, shuffle=True)
 valloader = DataLoader(valset, batch_size=64, shuffle=False)
+
+print(f"Total classes: {len(full_dataset.classes)}")
+print(f"Training samples: {len(trainset)}, Validation samples: {len(valset)}")
 
 # =====================
 # 2. Load Pretrained ResNet18
 # =====================
 model = models.resnet18(weights="IMAGENET1K_V1")
 
-# Freeze all layers first
+# Freeze all layers
 for param in model.parameters():
     param.requires_grad = False
 
-# Unfreeze the last residual block
+# Unfreeze last residual block for fine-tuning
 for param in model.layer4.parameters():
     param.requires_grad = True
 
-# Replace classifier head
+# Replace final classifier
 num_features = model.fc.in_features
+num_classes = len(full_dataset.classes)
+
 model.fc = nn.Sequential(
     nn.Linear(num_features, 256),
     nn.ReLU(),
     nn.Dropout(0.4),
-    nn.Linear(256, 10),
+    nn.Linear(256, num_classes),
     nn.LogSoftmax(dim=1)
 )
 
@@ -74,6 +95,7 @@ epochs = 10
 for epoch in range(epochs):
     model.train()
     running_loss = 0.0
+
     for images, labels in trainloader:
         images, labels = images.to(device), labels.to(device)
         optimizer.zero_grad()
@@ -83,7 +105,7 @@ for epoch in range(epochs):
         optimizer.step()
         running_loss += loss.item()
     
-    # Validation
+    # Validation phase
     model.eval()
     val_loss, correct, total = 0.0, 0, 0
     with torch.no_grad():
@@ -119,7 +141,7 @@ plt.legend()
 plt.title("Training vs Validation Loss")
 
 plt.subplot(1,2,2)
-plt.plot(val_acc_history, label="Val Accuracy")
+plt.plot(val_acc_history, label="Validation Accuracy")
 plt.xlabel("Epochs")
 plt.ylabel("Accuracy (%)")
 plt.legend()
