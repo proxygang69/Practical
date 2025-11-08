@@ -7,10 +7,6 @@ from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.utils import to_categorical
 import matplotlib.pyplot as plt
 
-
-
-
-
 # Read training data
 train_data = pd.read_csv("train_data.csv")
 X_train = train_data.iloc[:, :-1].values.astype('float32')
