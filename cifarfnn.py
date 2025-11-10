@@ -29,9 +29,9 @@ y_test = to_categorical(y_test, 10)
 # --- Build the model ---
 model = Sequential([
     Flatten(input_shape=(3072,)),
-    Dense(512, activation='relu', name='Hidden_Layer_1'),
-    Dense(256, activation='relu', name='Hidden_Layer_2'),
-    Dense(10, activation='softmax', name='Output_Layer')
+    Dense(512, activation='relu'),
+    Dense(256, activation='relu'),
+    Dense(10, activation='softmax')
 ])
 
 # Compile the model

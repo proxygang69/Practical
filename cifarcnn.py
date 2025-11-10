@@ -7,11 +7,6 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import to_categorical
 import matplotlib.pyplot as plt
 
-
-
-
-
-
 # Load datasets
 train_data = pd.read_csv("train_data.csv")
 test_data = pd.read_csv("test_data.csv")
@@ -32,26 +27,26 @@ X_train /= 255.0
 X_test /= 255.0
 
 # One-hot encode labels
-num_classes = 10
-y_train = to_categorical(y_train, num_classes)
-y_test = to_categorical(y_test, num_classes)
+
+y_train = to_categorical(y_train, 10)
+y_test = to_categorical(y_test, 10)
 
 # =====================
 # 2. Define CNN Model
 # =====================
 model = Sequential([
     # First Convolutional Block
-    Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3), name='Conv_1'),
-    MaxPooling2D((2, 2), name='Pool_1'),
+    Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)),
+    MaxPooling2D((2, 2)),
 
     # Second Convolutional Block
-    Conv2D(64, (3, 3), activation='relu', name='Conv_2'),
-    MaxPooling2D((2, 2), name='Pool_2'),
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D((2, 2)),
 
     # Classification Head
-    Flatten(name='Flatten_Layer'),
-    Dense(100, activation='relu', name='Dense_1'),
-    Dense(10, activation='softmax', name='Output_Layer')
+    Flatten(),
+    Dense(100, activation='relu'),
+    Dense(10, activation='softmax')
 ])
 
 # =====================

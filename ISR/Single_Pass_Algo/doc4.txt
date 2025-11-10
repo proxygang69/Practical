@@ -1,1 +1,0 @@
-Search engines rank documents by relevance using various retrieval models and clustering techniques.

@@ -1,5 +1,0 @@
-# Retrieved documents for query q1
-A: D1 D2 D3 D4 D5
-
-# Relevant documents for query q1
-Rq1: D2 D4 D6 D8

@@ -1,1 +1,0 @@
-The single-pass clustering algorithm processes documents one by one, assigning them to clusters dynamically.

@@ -1,1 +1,0 @@
-Popular clustering methods include k-means, hierarchical clustering, and density-based clustering algorithms.

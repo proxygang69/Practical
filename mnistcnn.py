@@ -28,21 +28,21 @@ X_train /= 255.0
 X_test /= 255.0
 
 # One-hot encode labels
-num_classes = 10
-y_train = to_categorical(y_train, num_classes)
-y_test = to_categorical(y_test, num_classes)
+
+y_train = to_categorical(y_train, 10)
+y_test = to_categorical(y_test, 10)
 
 # =====================
 # 2. Define CNN Model
 # =====================
 model = Sequential([
-    Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1), name='Conv_1'),
-    MaxPooling2D((2, 2), name='Pool_1'),
-    Conv2D(64, (3, 3), activation='relu', name='Conv_2'),
-    MaxPooling2D((2, 2), name='Pool_2'),
-    Flatten(name='Flatten_Layer'),
-    Dense(100, activation='relu', name='Dense_1'),
-    Dense(10, activation='softmax', name='Output_Layer')
+    Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    MaxPooling2D((2, 2)),
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D((2, 2)),
+    Flatten(),
+    Dense(100, activation='relu'),
+    Dense(10, activation='softmax')
 ])
 
 # Compile model
@@ -53,7 +53,7 @@ model.compile(
 )
 
 # Display model summary
-model.summary()
+
 
 # =====================
 # 3. Train Model
