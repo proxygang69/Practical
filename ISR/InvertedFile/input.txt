@@ -1,0 +1,2 @@
+This is a text. A text has many words. Words are made from letters.
+Letters make up many other words. Text retrieval uses inverted files.
