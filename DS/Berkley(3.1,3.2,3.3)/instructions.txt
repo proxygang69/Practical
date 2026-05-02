@@ -1,0 +1,10 @@
+Open 3 terminals:
+
+1. Compile
+javac BerkeleyServer.java
+javac BerkeleyClient.java
+2. Run Server
+java BerkeleyServer
+3. Run Clients (2 terminals)
+java BerkeleyClient
+java BerkeleyClient

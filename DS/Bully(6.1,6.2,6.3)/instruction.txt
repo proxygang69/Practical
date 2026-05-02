@@ -1,0 +1,9 @@
+Compile file in all terminals: javac BullyNode.java
+
+Execution:
+Terminal 1:
+java BullyNode 1 5001
+Terminal 2:
+java BullyNode 2 5002
+Terminal 3:
+java BullyNode 3 5003

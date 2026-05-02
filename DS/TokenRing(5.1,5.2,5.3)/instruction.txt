@@ -1,0 +1,8 @@
+compile on each terminal : javac TokenNode.java
+
+🖥️ Terminal 1 (Start FIRST)
+java TokenNode 5001 localhost 5002
+🖥️ Terminal 2 (Start SECOND)
+java TokenNode 5002 localhost 5000
+🖥️ Terminal 3 (Start LAST — inject token)
+java TokenNode 5000 localhost 5001 token

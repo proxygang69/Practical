@@ -1,0 +1,2 @@
+compile: javac -cp %MPJ_HOME%\lib\mpj.jar DistributedSum.java
+Execute: mpjrun.bat -np 4 DistributedSum
