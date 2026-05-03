@@ -1,4 +1,5 @@
 import mpi.*;
+import java.util.Arrays;
 
 public class DistributedSum {
     public static void main(String[] args) throws Exception {
@@ -18,10 +19,7 @@ public class DistributedSum {
                 sendbuf[i] = (i + 1) * 10; // 10,20,30,...
             }
 
-            System.out.print("Root distributing: ");
-            for (int i : sendbuf) {
-                System.out.print(i + " ");
-            }
+            System.out.print("Root distributing: " + Arrays.toString(sendbuf));
             System.out.println();
         }
 
